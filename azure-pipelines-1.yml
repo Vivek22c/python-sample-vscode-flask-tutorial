@@ -28,3 +28,11 @@ steps:
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+
+- script: |
+    pip install wheel
+    python3 setup.py sdist bdist_wheel
+  displayName: 'pytest'
+
+
+

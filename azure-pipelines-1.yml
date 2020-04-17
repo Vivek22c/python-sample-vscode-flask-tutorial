@@ -31,7 +31,7 @@ steps:
 
 - script: |
     pip install wheel
-    python3 setup.py sdist bdist_wheel
+    python3 startup.py sdist bdist_wheel
   displayName: 'pytest'
 
 

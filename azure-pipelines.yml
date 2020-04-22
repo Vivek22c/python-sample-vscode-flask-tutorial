@@ -10,14 +10,8 @@ pool:
   vmImage: 'ubuntu-latest'
 strategy:
   matrix:
-    Python27:
-      python.version: '2.7'
-    Python35:
-      python.version: '3.5'
     Python36:
       python.version: '3.6'
-    Python37:
-      python.version: '3.7'
 
 steps:
 - task: UsePythonVersion@0
@@ -31,6 +25,18 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
+    python -m pip install flake8
+    flake8 .
+  displayName: 'Run flake tests'
+
+- script: |
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
+  condition: succeededOrFailed()
+
+- script: |
+    pip install wheel
+    python3 startup.py sdist bdist_wheel
+  displayName: 'package'
+  condition: succeededOrFailed()
